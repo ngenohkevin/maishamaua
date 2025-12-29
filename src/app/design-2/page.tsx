@@ -212,7 +212,7 @@ export default function ModernDesign() {
             <a href="https://www.instagram.com/maishamaua.flower.shop.ruaka/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
             <a href="https://wa.me/254725496220" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp</a>
           </div>
-          <p className="text-xs sm:text-sm">&copy; 2024 Maisha Maua. Nairobi, Kenya</p>
+          <p className="text-xs sm:text-sm">&copy; 2025 Maisha Maua. Nairobi, Kenya</p>
         </div>
       </footer>
     </div>

@@ -196,7 +196,7 @@ export default function OrganicDesign() {
               <a href="https://www.instagram.com/maishamaua.flower.shop.ruaka/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
               <a href="https://wa.me/254725496220" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp</a>
             </div>
-            <p className="text-xs sm:text-sm">&copy; 2024 Maisha Maua. Sustainably grown in Kenya.</p>
+            <p className="text-xs sm:text-sm">&copy; 2025 Maisha Maua. Sustainably grown in Kenya.</p>
           </div>
         </div>
       </footer>
