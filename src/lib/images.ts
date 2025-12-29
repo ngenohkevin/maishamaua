@@ -11,7 +11,7 @@ export const elegantImages = {
 
 // Design 2: Fresh & Modern - Clean whites, sage green accents
 export const modernImages = {
-  hero: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
+  hero: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1200&q=80",
   featured1: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=800&q=80",
   featured2: "https://images.unsplash.com/photo-1469259943454-aa100abba749?w=800&q=80",
   featured3: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&q=80",

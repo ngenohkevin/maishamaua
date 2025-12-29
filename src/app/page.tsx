@@ -155,7 +155,7 @@ export default function DesignSelector() {
               <Instagram className="w-5 h-5" />
               <span>Instagram</span>
             </a>
-            <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
+            <a href="https://wa.me/254725496220" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
               <MessageCircle className="w-5 h-5" />
               <span>WhatsApp</span>
             </a>
