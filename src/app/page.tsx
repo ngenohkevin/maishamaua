@@ -70,11 +70,11 @@ export default function DesignSelector() {
         <div className="text-center mb-12">
           <Badge className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-0 mb-4">5 Design Options</Badge>
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Choose Your Favorite Design
+            Hey Sophie! 👋
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            We&apos;ve created five distinct design directions for your flower shop website.
-            Each design includes light and dark mode — click the sun/moon icon to toggle!
+            I have five different design directions for Maisha Maua.
+            Each one has light and dark mode — click the sun/moon icon to toggle!
           </p>
         </div>
 
@@ -136,19 +136,19 @@ export default function DesignSelector() {
 
         {/* Instructions */}
         <div className="mt-12 bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to Review</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">How to check them out</h3>
           <ol className="list-decimal list-inside space-y-2 text-gray-600 dark:text-gray-400">
-            <li>Click on any design card above to view the full landing page prototype</li>
-            <li>Use the sun/moon toggle in each design to switch between light and dark mode</li>
-            <li>Explore the different sections: hero, products, about, and contact</li>
-            <li>Use the &quot;Back to Designs&quot; link to return here and compare options</li>
-            <li>Let us know which design you prefer, and we&apos;ll finalize it!</li>
+            <li>Click on any design card above to see the full page</li>
+            <li>Try the sun/moon toggle to switch between light and dark mode</li>
+            <li>Scroll through to see all the sections: hero, products, about, and contact</li>
+            <li>Use &quot;Back to Designs&quot; to come back here and compare</li>
+            <li>Just let me know which one you like best and I&apos;ll take it from there!</li>
           </ol>
         </div>
 
         {/* Social Links */}
         <div className="mt-8 text-center">
-          <p className="text-gray-500 dark:text-gray-400 mb-4">Questions about the designs? Reach out anytime!</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">Got questions? Just text me!</p>
           <div className="flex justify-center gap-6 text-sm">
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Instagram</a>
             <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">TikTok</a>
