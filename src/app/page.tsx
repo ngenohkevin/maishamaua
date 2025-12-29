@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Instagram, MessageCircle } from "lucide-react";
 
 const designs = [
   {
@@ -149,10 +150,15 @@ export default function DesignSelector() {
         {/* Social Links */}
         <div className="mt-8 text-center">
           <p className="text-gray-500 dark:text-gray-400 mb-4">Got questions? Just text me!</p>
-          <div className="flex justify-center gap-6 text-sm">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Instagram</a>
-            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">TikTok</a>
-            <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">WhatsApp</a>
+          <div className="flex justify-center gap-6">
+            <a href="https://www.instagram.com/maishamaua.flower.shop.ruaka/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors">
+              <Instagram className="w-5 h-5" />
+              <span>Instagram</span>
+            </a>
+            <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
+              <MessageCircle className="w-5 h-5" />
+              <span>WhatsApp</span>
+            </a>
           </div>
         </div>
       </main>
