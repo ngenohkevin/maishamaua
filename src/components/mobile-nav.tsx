@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -61,6 +62,9 @@ export function MobileNav() {
               Maisha Maua
             </span>
           </SheetTitle>
+          <SheetDescription className="sr-only">
+            Navigation menu for Maisha Maua flower shop
+          </SheetDescription>
         </SheetHeader>
 
         <nav className="flex flex-col p-4">
