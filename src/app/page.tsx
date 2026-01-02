@@ -82,6 +82,20 @@ const occasions = [
 ];
 
 const WHATSAPP_LINK = "https://wa.me/message/CRZL573DJ5NSF1";
+const WHATSAPP_NUMBER = "254725496220";
+
+function getWhatsAppLink(productName?: string, price?: string) {
+  if (!productName) return WHATSAPP_LINK;
+  const message = `Hi! I'd like to order the *${productName}* (${price}). Please let me know the next steps.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function getCustomOrderLink(bouquetType?: string) {
+  const message = bouquetType
+    ? `Hi! I'm interested in ordering a custom *${bouquetType}*. Can you tell me more about pricing and availability?`
+    : `Hi! I'd like to inquire about a custom bouquet order. Can you help me?`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
 export default function MaishaMaua() {
   return (
@@ -251,7 +265,7 @@ export default function MaishaMaua() {
                     <p className="text-[#8A6F68] dark:text-[#a08a85] text-[10px] sm:text-xs mb-2 line-clamp-1">{product.description}</p>
                     <div className="flex items-center justify-between">
                       <p className="text-sm sm:text-lg font-semibold text-[#4A5D48] dark:text-[#8aab86]">{product.price}</p>
-                      <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                      <Link href={getWhatsAppLink(product.name, product.price)} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full text-[10px] sm:text-xs px-2 sm:px-3 h-7 sm:h-8">
                           Order
                         </Button>
@@ -287,7 +301,7 @@ export default function MaishaMaua() {
               ))}
             </div>
             <div className="text-center mt-6">
-              <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+              <Link href={getCustomOrderLink()} target="_blank" rel="noopener noreferrer">
                 <Button className="bg-[#C4A59E] hover:bg-[#8A6F68] text-white rounded-full text-sm px-6 py-5">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Inquire About Custom Orders
@@ -321,7 +335,7 @@ export default function MaishaMaua() {
               beautiful flowers — perfect for birthdays, graduations, and celebrations
               that deserve something extra special.
             </p>
-            <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+            <Link href={getCustomOrderLink("Money Bouquet")} target="_blank" rel="noopener noreferrer">
               <Button className="bg-white text-[#5C4A45] hover:bg-[#F0E6E2] px-6 sm:px-8 py-5 sm:py-6 rounded-full text-sm sm:text-base">
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Inquire on WhatsApp
