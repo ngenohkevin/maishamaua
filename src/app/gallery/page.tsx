@@ -258,7 +258,10 @@ export default function GalleryPage() {
 
       {/* Lightbox Dialog */}
       <Dialog open={selectedImage !== null} onOpenChange={closeImage}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 bg-black/95 border-0 overflow-hidden">
+        <DialogContent
+          className="max-w-[95vw] max-h-[95vh] p-0 bg-black/60 backdrop-blur-xl border-0 overflow-hidden"
+          showCloseButton={false}
+        >
           <DialogTitle className="sr-only">
             {selectedImage !== null ? galleryImages[selectedImage].alt : "Image viewer"}
           </DialogTitle>
@@ -270,24 +273,25 @@ export default function GalleryPage() {
               {/* Close button */}
               <button
                 onClick={closeImage}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors flex items-center justify-center"
                 aria-label="Close"
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="w-5 h-5 text-white" />
               </button>
 
               {/* Previous button */}
               <button
                 onClick={prevImage}
-                className="absolute left-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                className="absolute left-4 z-10 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors flex items-center justify-center"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-8 h-8 text-white" />
+                <ChevronLeft className="w-7 h-7 text-white" />
               </button>
 
               {/* Image */}
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full px-16">
                 <Image
+                  key={selectedImage}
                   src={galleryImages[selectedImage].src}
                   alt={galleryImages[selectedImage].alt}
                   fill
@@ -300,14 +304,14 @@ export default function GalleryPage() {
               {/* Next button */}
               <button
                 onClick={nextImage}
-                className="absolute right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                className="absolute right-4 z-10 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors flex items-center justify-center"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-8 h-8 text-white" />
+                <ChevronRight className="w-7 h-7 text-white" />
               </button>
 
               {/* Image counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 text-white text-sm">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium">
                 {selectedImage + 1} / {galleryImages.length}
               </div>
             </div>
