@@ -46,9 +46,9 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-[280px] bg-[#FDF8F6] dark:bg-[#1a1517] border-l border-[#F0E6E2] dark:border-[#2d2528] p-0"
+        className="w-[280px] bg-[#FDF8F6]/80 dark:bg-[#1a1517]/80 backdrop-blur-xl border-l border-[#F0E6E2]/50 dark:border-[#2d2528]/50 p-0"
       >
-        <SheetHeader className="p-6 border-b border-[#F0E6E2] dark:border-[#2d2528]">
+        <SheetHeader className="p-6 border-b border-[#F0E6E2]/50 dark:border-[#2d2528]/50">
           <SheetTitle className="flex items-center gap-3">
             <Image
               src="/images/logo.jpeg"
@@ -79,7 +79,7 @@ export function MobileNav() {
           ))}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-[#F0E6E2] dark:border-[#2d2528]">
+        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-[#F0E6E2]/50 dark:border-[#2d2528]/50 bg-[#FDF8F6]/50 dark:bg-[#1a1517]/50">
           <Link
             href={WHATSAPP_LINK}
             target="_blank"
