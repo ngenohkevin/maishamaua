@@ -195,48 +195,6 @@ export default function MaishaMaua() {
         </div>
       </section>
 
-      {/* Philosophy Section */}
-        <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 bg-[#4A5D48] dark:bg-[#2d3a2c]" aria-labelledby="philosophy-heading">
-        <div className="max-w-4xl mx-auto text-center">
-          <h3 id="philosophy-heading" className="font-[family-name:var(--font-playfair)] text-2xl sm:text-4xl text-white mb-4 sm:mb-6 italic">
-            Our Philosophy
-          </h3>
-          <p className="text-[#c4d4c2] text-base sm:text-lg leading-relaxed mb-6">
-            At Maisha Maua, we believe that life&apos;s most meaningful moments deserve to be
-            celebrated while people are still here. Flowers and gifts are not just for
-            special occasions — they are a way to express love, gratitude, and appreciation
-            in real time.
-          </p>
-          <p className="text-[#a8c9a4] text-sm sm:text-base">
-            We specialize in customized bouquets thoughtfully designed to reflect the personality,
-            preferences, and purpose of each recipient.
-          </p>
-        </div>
-      </section>
-
-      {/* Occasions Section */}
-      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-white dark:bg-[#0f0d0e]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12">
-            <p className="text-[#8A6F68] dark:text-[#a08a85] uppercase tracking-[0.2em] text-xs sm:text-sm mb-2 sm:mb-3">Perfect For</p>
-            <h3 className="font-[family-name:var(--font-playfair)] text-2xl sm:text-4xl text-[#5C4A45] dark:text-[#E8DED8] italic">
-              Every Meaningful Moment
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            {occasions.map((occasion, index) => (
-              <div key={index} className="text-center p-4 sm:p-6 bg-[#FDF8F6] dark:bg-[#1a1517] rounded-xl">
-                <h4 className="font-[family-name:var(--font-playfair)] text-base sm:text-xl text-[#5C4A45] dark:text-[#E8DED8] mb-1 sm:mb-2 italic">
-                  {occasion.name}
-                </h4>
-                <p className="text-[#8A6F68] dark:text-[#a08a85] text-xs sm:text-sm">{occasion.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Products Section */}
       <section id="bouquets" className="py-12 sm:py-24 px-4 sm:px-6 bg-[#FDF8F6] dark:bg-[#1a1517]">
         <div className="max-w-6xl mx-auto">
@@ -313,6 +271,48 @@ export default function MaishaMaua() {
                 </Button>
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Philosophy Section */}
+      <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 bg-[#4A5D48] dark:bg-[#2d3a2c]" aria-labelledby="philosophy-heading">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 id="philosophy-heading" className="font-[family-name:var(--font-playfair)] text-2xl sm:text-4xl text-white mb-4 sm:mb-6 italic">
+            Our Philosophy
+          </h3>
+          <p className="text-[#c4d4c2] text-base sm:text-lg leading-relaxed mb-6">
+            At Maisha Maua, we believe that life&apos;s most meaningful moments deserve to be
+            celebrated while people are still here. Flowers and gifts are not just for
+            special occasions — they are a way to express love, gratitude, and appreciation
+            in real time.
+          </p>
+          <p className="text-[#a8c9a4] text-sm sm:text-base">
+            We specialize in customized bouquets thoughtfully designed to reflect the personality,
+            preferences, and purpose of each recipient.
+          </p>
+        </div>
+      </section>
+
+      {/* Occasions Section */}
+      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-white dark:bg-[#0f0d0e]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8 sm:mb-12">
+            <p className="text-[#8A6F68] dark:text-[#a08a85] uppercase tracking-[0.2em] text-xs sm:text-sm mb-2 sm:mb-3">Perfect For</p>
+            <h3 className="font-[family-name:var(--font-playfair)] text-2xl sm:text-4xl text-[#5C4A45] dark:text-[#E8DED8] italic">
+              Every Meaningful Moment
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {occasions.map((occasion, index) => (
+              <div key={index} className="text-center p-4 sm:p-6 bg-[#FDF8F6] dark:bg-[#1a1517] rounded-xl">
+                <h4 className="font-[family-name:var(--font-playfair)] text-base sm:text-xl text-[#5C4A45] dark:text-[#E8DED8] mb-1 sm:mb-2 italic">
+                  {occasion.name}
+                </h4>
+                <p className="text-[#8A6F68] dark:text-[#a08a85] text-xs sm:text-sm">{occasion.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
