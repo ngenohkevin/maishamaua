@@ -163,6 +163,7 @@ export default function MaishaMaua() {
             src="/images/hero-bouquet.jpeg"
             alt="Beautiful flower bouquet"
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />
@@ -259,6 +260,7 @@ export default function MaishaMaua() {
                       src={product.image}
                       alt={product.name}
                       fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <Badge className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-[#4A5D48] text-white border-0 text-[10px] sm:text-xs">
@@ -327,6 +329,7 @@ export default function MaishaMaua() {
               src="/images/money_bouquet.jpeg"
               alt="Money Bouquet"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
