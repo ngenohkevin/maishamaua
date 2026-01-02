@@ -84,14 +84,10 @@ const occasions = [
 
 const WHATSAPP_LINK = "https://wa.me/message/CRZL573DJ5NSF1";
 const WHATSAPP_NUMBER = "254725496220";
-const SITE_URL = "https://maishamaua.iopulse.cloud";
 
-function getWhatsAppLink(productName?: string, price?: string, imageUrl?: string) {
+function getWhatsAppLink(productName?: string, price?: string) {
   if (!productName) return WHATSAPP_LINK;
-  const fullImageUrl = imageUrl ? `${SITE_URL}${imageUrl}` : "";
   const message = `Hi! I'd like to order the *${productName}* (${price}).
-
-${fullImageUrl ? `📸 Product: ${fullImageUrl}` : ""}
 
 Please let me know the next steps.`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -274,7 +270,7 @@ export default function MaishaMaua() {
                     <p className="text-[#8A6F68] dark:text-[#a08a85] text-[10px] sm:text-xs mb-2 line-clamp-1">{product.description}</p>
                     <div className="flex items-center justify-between">
                       <p className="text-sm sm:text-lg font-semibold text-[#4A5D48] dark:text-[#8aab86]">{product.price}</p>
-                      <Link href={getWhatsAppLink(product.name, product.price, product.image)} target="_blank" rel="noopener noreferrer">
+                      <Link href={getWhatsAppLink(product.name, product.price)} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full text-[10px] sm:text-xs px-2 sm:px-3 h-7 sm:h-8">
                           Order
                         </Button>
