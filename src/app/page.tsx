@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
 import { Instagram, Facebook, MessageCircle } from "lucide-react";
 
 // Standard bouquets
@@ -83,10 +84,16 @@ const occasions = [
 
 const WHATSAPP_LINK = "https://wa.me/message/CRZL573DJ5NSF1";
 const WHATSAPP_NUMBER = "254725496220";
+const SITE_URL = "https://maishamaua.iopulse.cloud";
 
-function getWhatsAppLink(productName?: string, price?: string) {
+function getWhatsAppLink(productName?: string, price?: string, imageUrl?: string) {
   if (!productName) return WHATSAPP_LINK;
-  const message = `Hi! I'd like to order the *${productName}* (${price}). Please let me know the next steps.`;
+  const fullImageUrl = imageUrl ? `${SITE_URL}${imageUrl}` : "";
+  const message = `Hi! I'd like to order the *${productName}* (${price}).
+
+${fullImageUrl ? `📸 Product: ${fullImageUrl}` : ""}
+
+Please let me know the next steps.`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
@@ -135,13 +142,13 @@ export default function MaishaMaua() {
               <a href="#contact" className="hover:text-[#5C4A45] dark:hover:text-[#E8DED8] transition-colors">Contact</a>
             </div>
             <ThemeToggle />
-            <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full px-3 sm:px-5 text-xs sm:text-sm">
-                <MessageCircle className="w-4 h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Order Now</span>
-                <span className="sm:hidden">Order</span>
+            <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="hidden sm:block">
+              <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full px-5 text-sm">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Order Now
               </Button>
             </Link>
+            <MobileNav />
           </div>
         </div>
         </nav>
@@ -265,7 +272,7 @@ export default function MaishaMaua() {
                     <p className="text-[#8A6F68] dark:text-[#a08a85] text-[10px] sm:text-xs mb-2 line-clamp-1">{product.description}</p>
                     <div className="flex items-center justify-between">
                       <p className="text-sm sm:text-lg font-semibold text-[#4A5D48] dark:text-[#8aab86]">{product.price}</p>
-                      <Link href={getWhatsAppLink(product.name, product.price)} target="_blank" rel="noopener noreferrer">
+                      <Link href={getWhatsAppLink(product.name, product.price, product.image)} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full text-[10px] sm:text-xs px-2 sm:px-3 h-7 sm:h-8">
                           Order
                         </Button>

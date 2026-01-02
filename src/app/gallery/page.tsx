@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +12,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
 import {
   MessageCircle,
   ArrowLeft,
@@ -70,6 +72,41 @@ const galleryImages = [
   { src: "/images/photo_2025-12-31%2012.34.18.jpeg", alt: "Elegant flower selection" },
   { src: "/images/photo_2025-12-31%2012.34.23.jpeg", alt: "Premium floral gift" },
 ];
+
+function GalleryImage({
+  src,
+  alt,
+  onClick,
+}: {
+  src: string;
+  alt: string;
+  onClick: () => void;
+}) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <button
+      onClick={onClick}
+      className="relative aspect-square rounded-xl overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#4A5D48] focus:ring-offset-2"
+      aria-label={`View ${alt}`}
+    >
+      {!isLoaded && (
+        <Skeleton className="absolute inset-0 bg-[#F0E6E2] dark:bg-[#2d2528]" />
+      )}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className={`object-cover transition-all duration-500 group-hover:scale-110 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        onLoad={() => setIsLoaded(true)}
+      />
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+    </button>
+  );
+}
 
 export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -136,13 +173,13 @@ export default function GalleryPage() {
               Back to Home
             </Link>
             <ThemeToggle />
-            <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full px-3 sm:px-5 text-xs sm:text-sm">
-                <MessageCircle className="w-4 h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Order Now</span>
-                <span className="sm:hidden">Order</span>
+            <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="hidden sm:block">
+              <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full px-5 text-sm">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Order Now
               </Button>
             </Link>
+            <MobileNav />
           </div>
         </div>
       </nav>
@@ -169,21 +206,12 @@ export default function GalleryPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {galleryImages.map((image, index) => (
-              <button
+              <GalleryImage
                 key={index}
+                src={image.src}
+                alt={image.alt}
                 onClick={() => openImage(index)}
-                className="relative aspect-square rounded-xl overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#4A5D48] focus:ring-offset-2"
-                aria-label={`View ${image.alt}`}
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-              </button>
+              />
             ))}
           </div>
         </div>
