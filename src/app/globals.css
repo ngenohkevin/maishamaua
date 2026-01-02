@@ -48,71 +48,83 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Maisha Maua Brand Colors */
+  --sage-green: #4A5D48;
+  --whatsapp-green: #25D366;
+  --dusty-rose: #C4A59E;
+  --background-light: #FDF8F6;
+  --background-dark: #1a1517;
+  --text-primary: #5C4A45;
+  --text-secondary: #8A6F68;
+
+  /* shadcn/ui color system mapped to brand */
+  --background: #FDF8F6;
+  --foreground: #5C4A45;
+  --card: #FFFFFF;
+  --card-foreground: #5C4A45;
+  --popover: #FFFFFF;
+  --popover-foreground: #5C4A45;
+  --primary: #4A5D48;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F0E6E2;
+  --secondary-foreground: #5C4A45;
+  --muted: #F0E6E2;
+  --muted-foreground: #8A6F68;
+  --accent: #C4A59E;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --border: #F0E6E2;
+  --input: #F0E6E2;
+  --ring: #4A5D48;
+  --chart-1: #4A5D48;
+  --chart-2: #25D366;
+  --chart-3: #C4A59E;
+  --chart-4: #8A6F68;
+  --chart-5: #5C4A45;
+  --sidebar: #FDF8F6;
+  --sidebar-foreground: #5C4A45;
+  --sidebar-primary: #4A5D48;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0E6E2;
+  --sidebar-accent-foreground: #5C4A45;
+  --sidebar-border: #F0E6E2;
+  --sidebar-ring: #4A5D48;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Maisha Maua Dark Mode Colors */
+  --background: #1a1517;
+  --foreground: #E8DED8;
+  --card: #0f0d0e;
+  --card-foreground: #E8DED8;
+  --popover: #0f0d0e;
+  --popover-foreground: #E8DED8;
+  --primary: #8aab86;
+  --primary-foreground: #1a1517;
+  --secondary: #2d2528;
+  --secondary-foreground: #E8DED8;
+  --muted: #2d2528;
+  --muted-foreground: #a08a85;
+  --accent: #c4aba5;
+  --accent-foreground: #1a1517;
+  --destructive: #F87171;
+  --border: #2d2528;
+  --input: #2d2528;
+  --ring: #6B8068;
+  --chart-1: #8aab86;
+  --chart-2: #25D366;
+  --chart-3: #c4aba5;
+  --chart-4: #a08a85;
+  --chart-5: #E8DED8;
+  --sidebar: #0f0d0e;
+  --sidebar-foreground: #E8DED8;
+  --sidebar-primary: #8aab86;
+  --sidebar-primary-foreground: #1a1517;
+  --sidebar-accent: #2d2528;
+  --sidebar-accent-foreground: #E8DED8;
+  --sidebar-border: #2d2528;
+  --sidebar-ring: #6B8068;
 }
 
 @layer base {
