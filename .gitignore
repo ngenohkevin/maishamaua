@@ -32,6 +32,14 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.local.example
+
+# CMS
+/cms/node_modules
+/cms/.tmp
+/cms/.cache
+/cms/build
+/cms/.env
 
 # vercel
 .vercel

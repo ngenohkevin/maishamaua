@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "admin.maishamaua.co.ke",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "1337",
+      },
     ],
   },
 };

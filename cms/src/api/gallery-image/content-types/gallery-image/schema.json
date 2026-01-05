@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gallery_images",
+  "info": {
+    "singularName": "gallery-image",
+    "pluralName": "gallery-images",
+    "displayName": "Gallery Image",
+    "description": "Images for the gallery showcase"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "alt": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "galleryCategory": {
+      "type": "enumeration",
+      "enum": ["weddings", "events", "daily", "special", "arrangements"],
+      "default": "daily"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

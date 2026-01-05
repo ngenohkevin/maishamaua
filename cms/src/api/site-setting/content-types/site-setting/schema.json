@@ -1,0 +1,84 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Settings",
+    "description": "Global site configuration and content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "businessName": {
+      "type": "string",
+      "required": true,
+      "default": "Maisha Maua"
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Fresh Flowers for Every Occasion"
+    },
+    "description": {
+      "type": "text"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "whatsappLink": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "address": {
+      "type": "text"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "tiktok": {
+      "type": "string"
+    },
+    "businessHours": {
+      "type": "json"
+    },
+    "heroTitle": {
+      "type": "string",
+      "default": "Beautiful Flowers for Every Moment"
+    },
+    "heroSubtitle": {
+      "type": "text"
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "philosophyTitle": {
+      "type": "string",
+      "default": "Our Philosophy"
+    },
+    "philosophyContent": {
+      "type": "richtext"
+    },
+    "philosophyImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "footerText": {
+      "type": "text"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}
