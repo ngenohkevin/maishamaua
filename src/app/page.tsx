@@ -6,74 +6,35 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { Instagram, Facebook, MessageCircle } from "lucide-react";
+import { getProducts, formatPrice, getStrapiImageUrl, type Product } from "@/lib/strapi";
 
-// Standard bouquets
-const products = [
-  {
-    name: "Economy Bouquet",
-    price: "KSh 1,200",
-    image: "/images/warm-bouquet.jpeg",
-    description: "Beautiful starter arrangement",
-    size: "Economy"
-  },
-  {
-    name: "Small Mixed Bouquet",
-    price: "KSh 1,500",
-    image: "/images/autumn-bloom.jpeg",
-    description: "Lovely mixed flower selection",
-    size: "Small"
-  },
-  {
-    name: "Medium Mixed Bouquet",
-    price: "KSh 2,300",
-    image: "/images/pink-roses.jpeg",
-    description: "Perfect balance of blooms",
-    size: "Medium"
-  },
-  {
-    name: "Large Mixed Bouquet",
-    price: "KSh 3,000",
-    image: "/images/colorful-mix.jpeg",
-    description: "Generous flower arrangement",
-    size: "Large"
-  },
-  {
-    name: "Extra Large Bouquet",
-    price: "KSh 4,500",
-    image: "/images/purple-elegance.jpeg",
-    description: "Stunning statement piece",
-    size: "Extra Large"
-  },
-  {
-    name: "Blast Bouquet",
-    price: "KSh 6,000",
-    image: "/images/sunflower-mix.jpeg",
-    description: "Impressive floral explosion",
-    size: "Blast"
-  },
-  {
-    name: "Premium Beauty",
-    price: "KSh 10,000",
-    image: "/images/hero-bouquet.jpeg",
-    description: "Luxurious premium collection",
-    size: "Premium"
-  },
-  {
-    name: "Just For You",
-    price: "KSh 12,000",
-    image: "/images/green-yellow.jpeg",
-    description: "Ultimate luxury bouquet",
-    size: "Signature"
-  },
+// Fallback static products (used if CMS is unavailable)
+const staticProducts = [
+  { name: "Economy Bouquet", price: 1200, image: "/images/warm-bouquet.jpeg", description: "Beautiful starter arrangement", size: "small" as const },
+  { name: "Small Mixed Bouquet", price: 1500, image: "/images/autumn-bloom.jpeg", description: "Lovely mixed flower selection", size: "small" as const },
+  { name: "Medium Mixed Bouquet", price: 2300, image: "/images/pink-roses.jpeg", description: "Perfect balance of blooms", size: "medium" as const },
+  { name: "Large Mixed Bouquet", price: 3000, image: "/images/colorful-mix.jpeg", description: "Generous flower arrangement", size: "large" as const },
+  { name: "Extra Large Bouquet", price: 4500, image: "/images/purple-elegance.jpeg", description: "Stunning statement piece", size: "extra-large" as const },
+  { name: "Blast Bouquet", price: 6000, image: "/images/sunflower-mix.jpeg", description: "Impressive floral explosion", size: "extra-large" as const },
+  { name: "Premium Beauty", price: 10000, image: "/images/hero-bouquet.jpeg", description: "Luxurious premium collection", size: "extra-large" as const },
+  { name: "Just For You", price: 12000, image: "/images/green-yellow.jpeg", description: "Ultimate luxury bouquet", size: "extra-large" as const },
 ];
 
-// Custom bouquets (advance orders required)
-const customBouquets = [
-  { name: "Money Bouquet", description: "Real currency beautifully arranged with flowers" },
-  { name: "Lilies Only", description: "Elegant pure lily arrangement" },
-  { name: "Sunflowers Only", description: "Cheerful sunflower collection" },
-  { name: "Peonies Only", description: "Romantic peony bouquet" },
-];
+// Static image mapping for products without CMS images
+const productImageMap: Record<string, string> = {
+  "economy-bouquet": "/images/warm-bouquet.jpeg",
+  "small-mixed-bouquet": "/images/autumn-bloom.jpeg",
+  "medium-mixed-bouquet": "/images/pink-roses.jpeg",
+  "large-mixed-bouquet": "/images/colorful-mix.jpeg",
+  "extra-large-bouquet": "/images/purple-elegance.jpeg",
+  "blast-bouquet": "/images/sunflower-mix.jpeg",
+  "premium-beauty": "/images/hero-bouquet.jpeg",
+  "just-for-you": "/images/green-yellow.jpeg",
+  "money-bouquet": "/images/money_bouquet.jpeg",
+  "lilies-only": "/images/hero-bouquet.jpeg",
+  "sunflowers-only": "/images/sunflower-mix.jpeg",
+  "peonies-only": "/images/pink-roses.jpeg",
+};
 
 const occasions = [
   { name: "Appreciation", desc: "Show gratitude to those who matter" },
@@ -100,7 +61,75 @@ function getCustomOrderLink(bouquetType?: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-export default function MaishaMaua() {
+// Helper to get product image URL
+function getProductImage(product: Product): string {
+  // If product has images from CMS, use the first one
+  if (product.images && product.images.length > 0) {
+    return getStrapiImageUrl(product.images[0]);
+  }
+  // Fallback to static image mapping
+  return productImageMap[product.slug] || "/images/hero-bouquet.jpeg";
+}
+
+// Helper to format size for display
+function formatSize(size?: string): string {
+  if (!size) return "Standard";
+  return size.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+}
+
+export default async function MaishaMaua() {
+  // Fetch products from CMS with fallback to static data
+  let products: Array<{ name: string; price: number; image: string; description: string; size: string }> = [];
+  let customBouquets: Array<{ name: string; description: string }> = [];
+
+  try {
+    const cmsProducts = await getProducts({ available: true });
+
+    if (cmsProducts && cmsProducts.length > 0) {
+      // Separate standard and custom products
+      const standardProducts = cmsProducts.filter(p => !p.customOrder).slice(0, 8);
+      const customProducts = cmsProducts.filter(p => p.customOrder);
+
+      products = standardProducts.map(p => ({
+        name: p.name,
+        price: p.price,
+        image: getProductImage(p),
+        description: p.description || "",
+        size: formatSize(p.size),
+      }));
+
+      customBouquets = customProducts.map(p => ({
+        name: p.name,
+        description: p.description || "",
+      }));
+    } else {
+      // Use static fallback
+      products = staticProducts.map(p => ({
+        ...p,
+        size: formatSize(p.size),
+      }));
+      customBouquets = [
+        { name: "Money Bouquet", description: "Real currency beautifully arranged with flowers" },
+        { name: "Lilies Only", description: "Elegant pure lily arrangement" },
+        { name: "Sunflowers Only", description: "Cheerful sunflower collection" },
+        { name: "Peonies Only", description: "Romantic peony bouquet" },
+      ];
+    }
+  } catch (error) {
+    console.error("Failed to fetch products from CMS:", error);
+    // Use static fallback on error
+    products = staticProducts.map(p => ({
+      ...p,
+      size: formatSize(p.size),
+    }));
+    customBouquets = [
+      { name: "Money Bouquet", description: "Real currency beautifully arranged with flowers" },
+      { name: "Lilies Only", description: "Elegant pure lily arrangement" },
+      { name: "Sunflowers Only", description: "Cheerful sunflower collection" },
+      { name: "Peonies Only", description: "Romantic peony bouquet" },
+    ];
+  }
+
   return (
     <div className="min-h-screen bg-[#FDF8F6] dark:bg-[#1a1517]">
       {/* Skip to main content link for accessibility */}
@@ -227,8 +256,8 @@ export default function MaishaMaua() {
                     </h4>
                     <p className="text-[#8A6F68] dark:text-[#a08a85] text-[10px] sm:text-xs mb-2 line-clamp-1">{product.description}</p>
                     <div className="flex items-center justify-between">
-                      <p className="text-sm sm:text-lg font-semibold text-[#4A5D48] dark:text-[#8aab86]">{product.price}</p>
-                      <Link href={getWhatsAppLink(product.name, product.price)} target="_blank" rel="noopener noreferrer">
+                      <p className="text-sm sm:text-lg font-semibold text-[#4A5D48] dark:text-[#8aab86]">{formatPrice(product.price)}</p>
+                      <Link href={getWhatsAppLink(product.name, formatPrice(product.price))} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full text-[10px] sm:text-xs px-2 sm:px-3 h-7 sm:h-8">
                           Order
                         </Button>
