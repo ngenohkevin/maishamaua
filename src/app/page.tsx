@@ -483,7 +483,7 @@ export default async function MaishaMaua() {
           {/* Bottom */}
           <div className="border-t border-[#5C4A45] pt-6 sm:pt-8 text-center">
             <p className="text-xs sm:text-sm text-[#8A6F68]">
-              &copy; 2025 Maisha Maua. Ruaka, Nairobi, Kenya.
+              &copy; {new Date().getFullYear()} Maisha Maua. Ruaka, Nairobi, Kenya.
             </p>
             <p className="text-xs text-[#6B5A4D] mt-2">
               Flowers for life&apos;s beautiful moments — not for farewells.
