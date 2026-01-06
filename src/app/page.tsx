@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { Instagram, Facebook, MessageCircle } from "lucide-react";
-import { getProducts, formatPrice, getStrapiImageUrl, type Product } from "@/lib/strapi";
+import { ProductImage } from "@/components/product-image";
+import { getProducts, getSiteSettings, formatPrice, getStrapiImageUrl, type Product, type SiteSettings } from "@/lib/strapi";
 
 // Fallback static products (used if CMS is unavailable)
 const staticProducts = [
@@ -77,10 +78,25 @@ function formatSize(size?: string): string {
   return size.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 }
 
+// Fallback site settings
+const defaultSiteSettings = {
+  businessName: "Maisha Maua",
+  tagline: "Give them their flowers while they're still here",
+  heroTitle: "Celebrate Life With Flowers",
+  heroSubtitle: "Why wait for a special occasion? Show love, gratitude, and appreciation with customized bouquets and gifts — while they are still here.",
+  whatsappLink: "https://wa.me/message/CRZL573DJ5NSF1",
+  footerText: "Flowers for life's beautiful moments — not for farewells.",
+  heroImage: null as SiteSettings["heroImage"] | null,
+  logo: null as SiteSettings["logo"] | null,
+  philosophyTitle: "Our Philosophy",
+  philosophyContent: "At Maisha Maua, we believe that life's most meaningful moments deserve to be celebrated while people are still here. Flowers and gifts are not just for special occasions — they are a way to express love, gratitude, and appreciation in real time.",
+};
+
 export default async function MaishaMaua() {
   // Fetch products from CMS with fallback to static data
   let products: Array<{ name: string; price: number; image: string; description: string; size: string }> = [];
   let customBouquets: Array<{ name: string; description: string }> = [];
+  let siteSettings = defaultSiteSettings;
 
   try {
     const cmsProducts = await getProducts({ available: true });
@@ -130,6 +146,42 @@ export default async function MaishaMaua() {
     ];
   }
 
+  // Fetch site settings
+  try {
+    const cmsSiteSettings = await getSiteSettings();
+    if (cmsSiteSettings) {
+      siteSettings = {
+        businessName: cmsSiteSettings.businessName || defaultSiteSettings.businessName,
+        tagline: cmsSiteSettings.tagline || defaultSiteSettings.tagline,
+        heroTitle: cmsSiteSettings.heroTitle || defaultSiteSettings.heroTitle,
+        heroSubtitle: cmsSiteSettings.heroSubtitle || defaultSiteSettings.heroSubtitle,
+        whatsappLink: cmsSiteSettings.whatsappLink || defaultSiteSettings.whatsappLink,
+        footerText: cmsSiteSettings.footerText || defaultSiteSettings.footerText,
+        heroImage: cmsSiteSettings.heroImage || null,
+        logo: cmsSiteSettings.logo || null,
+        philosophyTitle: cmsSiteSettings.philosophyTitle || defaultSiteSettings.philosophyTitle,
+        philosophyContent: cmsSiteSettings.philosophyContent || defaultSiteSettings.philosophyContent,
+      };
+    }
+  } catch (error) {
+    console.error("Failed to fetch site settings from CMS:", error);
+  }
+
+  // Helper to get image URL from CMS or fallback
+  const getHeroImageUrl = () => {
+    if (siteSettings.heroImage?.url) {
+      return getStrapiImageUrl(siteSettings.heroImage);
+    }
+    return "/images/hero-bouquet.jpeg";
+  };
+
+  const getLogoUrl = () => {
+    if (siteSettings.logo?.url) {
+      return getStrapiImageUrl(siteSettings.logo);
+    }
+    return "/images/logo.jpeg";
+  };
+
   return (
     <div className="min-h-screen bg-[#FDF8F6] dark:bg-[#1a1517]">
       {/* Skip to main content link for accessibility */}
@@ -149,14 +201,14 @@ export default async function MaishaMaua() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             <Image
-              src="/images/logo.jpeg"
-              alt="Maisha Maua"
+              src={getLogoUrl()}
+              alt={siteSettings.businessName}
               width={40}
               height={40}
               className="rounded-full sm:w-12 sm:h-12"
             />
             <h1 className="font-[family-name:var(--font-playfair)] text-lg sm:text-2xl text-[#5C4A45] dark:text-[#E8DED8] italic">
-              Maisha Maua
+              {siteSettings.businessName}
             </h1>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
@@ -167,7 +219,7 @@ export default async function MaishaMaua() {
               <a href="#contact" className="hover:text-[#5C4A45] dark:hover:text-[#E8DED8] transition-colors">Contact</a>
             </div>
             <ThemeToggle />
-            <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="hidden sm:block">
+            <Link href={siteSettings.whatsappLink} target="_blank" rel="noopener noreferrer" className="hidden sm:block">
               <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full px-5 text-sm">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Order Now
@@ -185,7 +237,7 @@ export default async function MaishaMaua() {
         <section className="relative min-h-screen flex items-center justify-center pt-16" aria-labelledby="hero-heading">
         <div className="absolute inset-0">
           <Image
-            src="/images/hero-bouquet.jpeg"
+            src={getHeroImageUrl()}
             alt="Beautiful flower bouquet"
             fill
             sizes="100vw"
@@ -197,19 +249,18 @@ export default async function MaishaMaua() {
 
         <div className="relative text-center max-w-3xl px-4 sm:px-6 py-12">
           <Badge className="bg-[#4A5D48]/10 dark:bg-[#4A5D48]/20 text-[#4A5D48] dark:text-[#8aab86] border-[#4A5D48] dark:border-[#6B8068] mb-4 sm:mb-6 text-xs sm:text-sm">
-            Give them their flowers while they&apos;re still here
+            {siteSettings.tagline}
           </Badge>
           <h2 id="hero-heading" className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-7xl text-[#5C4A45] dark:text-[#E8DED8] mb-4 sm:mb-6 leading-tight">
-            Celebrate Life
+            {siteSettings.heroTitle?.split(" ").slice(0, 2).join(" ")}
             <br />
-            <span className="italic">With Flowers</span>
+            <span className="italic">{siteSettings.heroTitle?.split(" ").slice(2).join(" ")}</span>
           </h2>
           <p className="text-[#8A6F68] dark:text-[#a08a85] text-base sm:text-lg mb-8 sm:mb-10 leading-relaxed max-w-xl mx-auto">
-            Why wait for a special occasion? Show love, gratitude, and appreciation
-            with customized bouquets and gifts — while they are still here.
+            {siteSettings.heroSubtitle}
           </p>
           <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
-            <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+            <Link href={siteSettings.whatsappLink} target="_blank" rel="noopener noreferrer">
               <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white px-6 sm:px-8 py-5 sm:py-6 rounded-full text-sm sm:text-base">
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Order on WhatsApp
@@ -239,12 +290,9 @@ export default async function MaishaMaua() {
               <Card key={index} className="border border-[#F0E6E2] dark:border-[#2d2528] hover:border-[#4A5D48] dark:hover:border-[#4A5D48] transition-all duration-300 overflow-hidden group bg-white dark:bg-[#0f0d0e] rounded-xl">
                 <CardContent className="p-0">
                   <div className="relative aspect-square overflow-hidden">
-                    <Image
+                    <ProductImage
                       src={product.image}
                       alt={product.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <Badge className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-[#4A5D48] text-white border-0 text-[10px] sm:text-xs">
                       {product.size}
@@ -308,17 +356,10 @@ export default async function MaishaMaua() {
       <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 bg-[#4A5D48] dark:bg-[#2d3a2c]" aria-labelledby="philosophy-heading">
         <div className="max-w-4xl mx-auto text-center">
           <h3 id="philosophy-heading" className="font-[family-name:var(--font-playfair)] text-2xl sm:text-4xl text-white mb-4 sm:mb-6 italic">
-            Our Philosophy
+            {siteSettings.philosophyTitle}
           </h3>
           <p className="text-[#c4d4c2] text-base sm:text-lg leading-relaxed mb-6">
-            At Maisha Maua, we believe that life&apos;s most meaningful moments deserve to be
-            celebrated while people are still here. Flowers and gifts are not just for
-            special occasions — they are a way to express love, gratitude, and appreciation
-            in real time.
-          </p>
-          <p className="text-[#a8c9a4] text-sm sm:text-base">
-            We specialize in customized bouquets thoughtfully designed to reflect the personality,
-            preferences, and purpose of each recipient.
+            {siteSettings.philosophyContent}
           </p>
         </div>
       </section>
@@ -390,7 +431,7 @@ export default async function MaishaMaua() {
             Order via WhatsApp for customized bouquets, gift combinations,
             and delivery across Nairobi. Let&apos;s create something beautiful together!
           </p>
-          <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+          <Link href={siteSettings.whatsappLink} target="_blank" rel="noopener noreferrer">
             <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg rounded-full">
               <MessageCircle className="w-5 h-5 mr-2" />
               Chat on WhatsApp
@@ -408,18 +449,18 @@ export default async function MaishaMaua() {
             <div className="text-center md:text-left">
               <div className="flex items-center gap-3 justify-center md:justify-start mb-4">
                 <Image
-                  src="/images/logo.jpeg"
-                  alt="Maisha Maua"
+                  src={getLogoUrl()}
+                  alt={siteSettings.businessName}
                   width={50}
                   height={50}
                   className="rounded-full"
                 />
                 <h4 className="font-[family-name:var(--font-playfair)] text-xl sm:text-2xl text-white italic">
-                  Maisha Maua
+                  {siteSettings.businessName}
                 </h4>
               </div>
               <p className="text-sm text-[#a08a85]">
-                Give them their flowers while they&apos;re still here.
+                {siteSettings.tagline}
               </p>
             </div>
 
@@ -468,7 +509,7 @@ export default async function MaishaMaua() {
                   <Facebook className="w-5 h-5 text-white" aria-hidden="true" />
                 </a>
                 <a
-                  href={WHATSAPP_LINK}
+                  href={siteSettings.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Contact us on WhatsApp"
@@ -483,10 +524,10 @@ export default async function MaishaMaua() {
           {/* Bottom */}
           <div className="border-t border-[#5C4A45] pt-6 sm:pt-8 text-center">
             <p className="text-xs sm:text-sm text-[#8A6F68]">
-              &copy; {new Date().getFullYear()} Maisha Maua. Ruaka, Nairobi, Kenya.
+              &copy; {new Date().getFullYear()} {siteSettings.businessName}. Ruaka, Nairobi, Kenya.
             </p>
             <p className="text-xs text-[#6B5A4D] mt-2">
-              Flowers for life&apos;s beautiful moments — not for farewells.
+              {siteSettings.footerText}
             </p>
           </div>
         </div>
