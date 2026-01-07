@@ -465,13 +465,15 @@ export default async function MaishaMaua() {
             </div>
 
             {/* Quick Links */}
-            <div className="text-center">
-              <h5 className="text-white font-medium mb-4">Quick Links</h5>
-              <div className="flex flex-col gap-2 text-sm">
-                <a href="#bouquets" className="hover:text-white transition-colors">Our Bouquets</a>
-                <Link href="/gallery" className="hover:text-white transition-colors">Gallery</Link>
-                <a href="#about" className="hover:text-white transition-colors">About Us</a>
-                <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+            <div className="flex justify-center">
+              <div className="text-left">
+                <h5 className="text-white font-medium mb-4">Quick Links</h5>
+                <div className="flex flex-col gap-2 text-sm">
+                  <a href="#bouquets" className="hover:text-white transition-colors">Our Bouquets</a>
+                  <Link href="/gallery" className="hover:text-white transition-colors">Gallery</Link>
+                  <a href="#about" className="hover:text-white transition-colors">About Us</a>
+                  <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+                </div>
               </div>
             </div>
 
