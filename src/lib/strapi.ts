@@ -72,6 +72,11 @@ export interface Testimonial {
   sortOrder: number;
 }
 
+export interface Occasion {
+  name: string;
+  description: string;
+}
+
 export interface SiteSettings {
   id: number;
   documentId: string;
@@ -99,6 +104,14 @@ export interface SiteSettings {
   philosophyImage?: StrapiImage;
   footerText?: string;
   logo?: StrapiImage;
+  // Phase 3 fields
+  moneyBouquetTitle?: string;
+  moneyBouquetBadge?: string;
+  moneyBouquetDescription?: string;
+  moneyBouquetImage?: StrapiImage;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  occasions?: Occasion[];
 }
 
 interface StrapiResponse<T> {

@@ -7,7 +7,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { Instagram, Facebook, MessageCircle } from "lucide-react";
 import { ProductImage } from "@/components/product-image";
-import { getProducts, getSiteSettings, formatPrice, getStrapiImageUrl, type Product, type SiteSettings } from "@/lib/strapi";
+import { FeatureImage } from "@/components/feature-image";
+import { getProducts, getSiteSettings, formatPrice, getStrapiImageUrl, type Product, type SiteSettings, type Occasion } from "@/lib/strapi";
 
 // Fallback static products (used if CMS is unavailable)
 const staticProducts = [
@@ -37,11 +38,11 @@ const productImageMap: Record<string, string> = {
   "peonies-only": "/images/pink-roses.jpeg",
 };
 
-const occasions = [
-  { name: "Appreciation", desc: "Show gratitude to those who matter" },
-  { name: "Celebrations", desc: "Birthdays, promotions & achievements" },
-  { name: "Milestones", desc: "Anniversaries & special moments" },
-  { name: "Just Because", desc: "No reason needed to show love" },
+const defaultOccasions: Array<{ name: string; description: string }> = [
+  { name: "Appreciation", description: "Show gratitude to those who matter" },
+  { name: "Celebrations", description: "Birthdays, promotions & achievements" },
+  { name: "Milestones", description: "Anniversaries & special moments" },
+  { name: "Just Because", description: "No reason needed to show love" },
 ];
 
 const WHATSAPP_LINK = "https://wa.me/message/CRZL573DJ5NSF1";
@@ -90,6 +91,14 @@ const defaultSiteSettings = {
   logo: null as SiteSettings["logo"] | null,
   philosophyTitle: "Our Philosophy",
   philosophyContent: "At Maisha Maua, we believe that life's most meaningful moments deserve to be celebrated while people are still here. Flowers and gifts are not just for special occasions — they are a way to express love, gratitude, and appreciation in real time.",
+  // Phase 3 defaults
+  moneyBouquetTitle: "Money Bouquets",
+  moneyBouquetBadge: "Special Collection",
+  moneyBouquetDescription: "A unique way to gift! Our stunning money bouquets combine real currency with beautiful flowers — perfect for birthdays, graduations, and celebrations that deserve something extra special.",
+  moneyBouquetImage: null as SiteSettings["moneyBouquetImage"] | null,
+  ctaTitle: "Ready to Celebrate Someone Special?",
+  ctaSubtitle: "Order via WhatsApp for customized bouquets, gift combinations, and delivery across Nairobi. Let's create something beautiful together!",
+  occasions: defaultOccasions,
 };
 
 export default async function MaishaMaua() {
@@ -161,6 +170,14 @@ export default async function MaishaMaua() {
         logo: cmsSiteSettings.logo || null,
         philosophyTitle: cmsSiteSettings.philosophyTitle || defaultSiteSettings.philosophyTitle,
         philosophyContent: cmsSiteSettings.philosophyContent || defaultSiteSettings.philosophyContent,
+        // Phase 3 fields
+        moneyBouquetTitle: cmsSiteSettings.moneyBouquetTitle || defaultSiteSettings.moneyBouquetTitle,
+        moneyBouquetBadge: cmsSiteSettings.moneyBouquetBadge || defaultSiteSettings.moneyBouquetBadge,
+        moneyBouquetDescription: cmsSiteSettings.moneyBouquetDescription || defaultSiteSettings.moneyBouquetDescription,
+        moneyBouquetImage: cmsSiteSettings.moneyBouquetImage || null,
+        ctaTitle: cmsSiteSettings.ctaTitle || defaultSiteSettings.ctaTitle,
+        ctaSubtitle: cmsSiteSettings.ctaSubtitle || defaultSiteSettings.ctaSubtitle,
+        occasions: cmsSiteSettings.occasions || defaultSiteSettings.occasions,
       };
     }
   } catch (error) {
@@ -181,6 +198,16 @@ export default async function MaishaMaua() {
     }
     return "/images/logo.jpeg";
   };
+
+  const getMoneyBouquetImageUrl = () => {
+    if (siteSettings.moneyBouquetImage?.url) {
+      return getStrapiImageUrl(siteSettings.moneyBouquetImage);
+    }
+    return "/images/money_bouquet.jpeg";
+  };
+
+  // Get occasions from CMS or use defaults
+  const occasions = siteSettings.occasions || defaultOccasions;
 
   return (
     <div className="min-h-screen bg-[#FDF8F6] dark:bg-[#1a1517]">
@@ -380,7 +407,7 @@ export default async function MaishaMaua() {
                 <h4 className="font-[family-name:var(--font-playfair)] text-base sm:text-xl text-[#5C4A45] dark:text-[#E8DED8] mb-1 sm:mb-2 italic">
                   {occasion.name}
                 </h4>
-                <p className="text-[#8A6F68] dark:text-[#a08a85] text-xs sm:text-sm">{occasion.desc}</p>
+                <p className="text-[#8A6F68] dark:text-[#a08a85] text-xs sm:text-sm">{occasion.description}</p>
               </div>
             ))}
           </div>
@@ -391,27 +418,23 @@ export default async function MaishaMaua() {
       <section className="py-12 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-[#C4A59E] to-[#8A6F68] dark:from-[#5C4A45] dark:to-[#3d322f]">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div className="relative aspect-square rounded-2xl overflow-hidden">
-            <Image
-              src="/images/money_bouquet.jpeg"
-              alt="Money Bouquet"
-              fill
+            <FeatureImage
+              src={getMoneyBouquetImageUrl()}
+              alt={siteSettings.moneyBouquetTitle}
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
             />
           </div>
           <div className="text-center md:text-left">
             <Badge className="bg-white/20 text-white border-white/30 mb-4 text-xs sm:text-sm">
-              Special Collection
+              {siteSettings.moneyBouquetBadge}
             </Badge>
             <h3 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl text-white mb-4 sm:mb-6 italic">
-              Money Bouquets
+              {siteSettings.moneyBouquetTitle}
             </h3>
             <p className="text-white/90 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-              A unique way to gift! Our stunning money bouquets combine real currency with
-              beautiful flowers — perfect for birthdays, graduations, and celebrations
-              that deserve something extra special.
+              {siteSettings.moneyBouquetDescription}
             </p>
-            <Link href={getCustomOrderLink("Money Bouquet")} target="_blank" rel="noopener noreferrer">
+            <Link href={getCustomOrderLink(siteSettings.moneyBouquetTitle)} target="_blank" rel="noopener noreferrer">
               <Button className="bg-white text-[#5C4A45] hover:bg-[#F0E6E2] px-6 sm:px-8 py-5 sm:py-6 rounded-full text-sm sm:text-base">
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Inquire on WhatsApp
@@ -425,11 +448,10 @@ export default async function MaishaMaua() {
       <section id="contact" className="py-12 sm:py-24 px-4 sm:px-6 bg-[#5C4A45] dark:bg-[#2d2528]">
         <div className="max-w-2xl mx-auto text-center">
           <h3 className="font-[family-name:var(--font-playfair)] text-2xl sm:text-4xl text-white mb-4 sm:mb-6 italic">
-            Ready to Celebrate Someone Special?
+            {siteSettings.ctaTitle}
           </h3>
           <p className="text-[#c4aba5] text-base sm:text-lg mb-6 sm:mb-8">
-            Order via WhatsApp for customized bouquets, gift combinations,
-            and delivery across Nairobi. Let&apos;s create something beautiful together!
+            {siteSettings.ctaSubtitle}
           </p>
           <Link href={siteSettings.whatsappLink} target="_blank" rel="noopener noreferrer">
             <Button className="bg-[#25D366] hover:bg-[#128C7E] text-white px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg rounded-full">
