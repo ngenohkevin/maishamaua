@@ -17,7 +17,9 @@ COPY . .
 
 # Build args for Next.js public env vars (must be available at build time)
 ARG NEXT_PUBLIC_STRAPI_URL
+ARG NEXT_PUBLIC_STRAPI_MEDIA_URL
 ENV NEXT_PUBLIC_STRAPI_URL=$NEXT_PUBLIC_STRAPI_URL
+ENV NEXT_PUBLIC_STRAPI_MEDIA_URL=$NEXT_PUBLIC_STRAPI_MEDIA_URL
 
 # Build the application
 RUN npm run build

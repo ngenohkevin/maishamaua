@@ -39,6 +39,7 @@ jobs:
         env:
           NODE_ENV: production
           NEXT_PUBLIC_STRAPI_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_URL }}
+          NEXT_PUBLIC_STRAPI_MEDIA_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_MEDIA_URL }}
 
       - name: Log in to GitHub Container Registry
         if: github.event_name != 'pull_request'
@@ -78,6 +79,7 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             NEXT_PUBLIC_STRAPI_URL=${{ secrets.NEXT_PUBLIC_STRAPI_URL }}
+            NEXT_PUBLIC_STRAPI_MEDIA_URL=${{ secrets.NEXT_PUBLIC_STRAPI_MEDIA_URL }}
 
       - name: Deploy to Dokploy via API
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

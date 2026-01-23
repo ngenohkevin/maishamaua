@@ -1,7 +1,10 @@
 import { unstable_cache } from 'next/cache';
 
 // Strapi API configuration
+// STRAPI_URL is for server-side API calls (can be internal Docker hostname)
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+// STRAPI_MEDIA_URL is for client-side image URLs (must be publicly accessible)
+const STRAPI_MEDIA_URL = process.env.NEXT_PUBLIC_STRAPI_MEDIA_URL || STRAPI_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
 // Types for Strapi responses
@@ -135,8 +138,8 @@ export function getStrapiImageUrl(image: StrapiImage | undefined): string {
     return image.url;
   }
 
-  // Otherwise, prepend Strapi URL
-  return `${STRAPI_URL}${image.url}`;
+  // Otherwise, prepend Strapi media URL (publicly accessible)
+  return `${STRAPI_MEDIA_URL}${image.url}`;
 }
 
 // Base fetch function with authentication
